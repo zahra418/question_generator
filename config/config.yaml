@@ -1,0 +1,45 @@
+model:
+
+  checkpoint: t5-small
+
+data:
+
+  train_split: train
+  validation_split: validation
+
+preprocessing:
+
+  max_input_length: 1024
+  max_target_length: 128
+
+output:
+
+  tokenized_train_dataset: tokenized_train_dataset
+  tokenized_valid_dataset: tokenized_valid_dataset
+
+question_generation:
+
+  model_checkpoint: "t5-small"
+  num_questions: 3
+  num_options: 3
+  num_beams: 4
+  max_length: 64
+  fine_tuned_model_directory: "./fine_tuned_model"
+
+
+training:
+
+  model_checkpoint: "t5-small"
+  batch_size: 16
+  learning_rate: 2e-5
+  weight_decay: 0.01
+  num_train_epochs: 1
+  evaluation_strategy: "epoch"
+  save_total_limit: 3
+  output_dir: "./fine_tuned_model"
+  predict_with_generate: True
+  fp16: True
+  push_to_hub: False
+  tokenized_train_dataset: "tokenized_train_dataset"
+  tokenized_valid_dataset: "tokenized_valid_dataset"
+
